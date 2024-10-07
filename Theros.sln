@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34714.143
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Theros", "Theros\Theros.vbproj", "{F1B4A1DB-2192-48CB-8159-34D96D21671B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1B4A1DB-2192-48CB-8159-34D96D21671B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B4A1DB-2192-48CB-8159-34D96D21671B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B4A1DB-2192-48CB-8159-34D96D21671B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B4A1DB-2192-48CB-8159-34D96D21671B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D1B5A5F-DBB9-4DDA-8DB0-5BFED3A6B917}
+	EndGlobalSection
+EndGlobal
