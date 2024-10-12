@@ -183,7 +183,7 @@ Public Class Form1
     ' API DeepL 
 
     Private Async Function TranslateText(texto As String, sourceLang As String, targetLan As String) As Task(Of String)
-        Dim apiKey As String = "502bf884-5a12-4cb0-8e5f-4790738cf120:fx" ' API key
+        Dim apiKey As String = "key here" ' API key **********************************************
         Dim url As String = "https://api-free.deepl.com/v2/translate"
 
         ' 
