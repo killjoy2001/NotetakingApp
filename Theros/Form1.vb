@@ -1,7 +1,31 @@
 ﻿Imports System.IO
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
+Imports System.Net.Http
+Imports Newtonsoft.Json.Linq
+
 Public Class Form1
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load  ' load
+
+        AbbCheck()
+
+        If System.IO.File.Exists("vocab1.txt") Then
+            TextBox1.Text = System.IO.File.ReadAllText("vocab1.txt") ' loads vocab on TextBox1
+        End If
+        If System.IO.File.Exists("vocab2.txt") Then
+            TextBox2.Text = System.IO.File.ReadAllText("vocab2.txt") ' loads vocab on TextBox2
+        End If
+        If System.IO.File.Exists("vocab3.txt") Then
+            TextBox3.Text = System.IO.File.ReadAllText("vocab3.txt") ' loads vocab on TextBox3
+        End If
+
+        cbOriginalLang.Items.AddRange(New String() {"EN", "ES", "FR", "DE", "IT", "PT"})
+        cbTargetLang.Items.AddRange(New String() {"EN", "ES", "FR", "DE", "IT", "PT"})
+
+        cbOriginalLang.SelectedItem = "EN"
+        cbTargetLang.SelectedItem = "ES"
+    End Sub
 
     Private Sub richTextBox1_TextChanged(sender As Object, e As EventArgs) Handles richTextBox1.TextChanged
 
@@ -62,20 +86,7 @@ Public Class Form1
         System.IO.File.WriteAllText("vocab2.txt", TextBox2.Text)
         System.IO.File.WriteAllText("vocab3.txt", TextBox3.Text)
     End Sub
-    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        AbbCheck()
-
-        If System.IO.File.Exists("vocab1.txt") Then
-            TextBox1.Text = System.IO.File.ReadAllText("vocab1.txt") ' loads vocab on TextBox1
-        End If
-        If System.IO.File.Exists("vocab2.txt") Then
-            TextBox2.Text = System.IO.File.ReadAllText("vocab2.txt") ' loads vocab on TextBox2
-        End If
-        If System.IO.File.Exists("vocab3.txt") Then
-            TextBox3.Text = System.IO.File.ReadAllText("vocab3.txt") ' loads vocab on TextBox3
-        End If
-    End Sub
 
     ' ************************
     ' abbreviations **********
@@ -132,7 +143,7 @@ Public Class Form1
             Dim newCursorPosition As Integer = originalStart + (modifiedText.Length - originalText.Length)
             richTextBox1.SelectionStart = newCursorPosition
 
-            ' 
+            ' c#
             SendKeys.Send("{RIGHT}")
 
 
@@ -167,5 +178,61 @@ Public Class Form1
             End While
         Next
     End Sub
+
+    '*******************************
+    ' API DeepL 
+
+    Private Async Function TranslateText(texto As String, sourceLang As String, targetLan As String) As Task(Of String)
+        Dim apiKey As String = "502bf884-5a12-4cb0-8e5f-4790738cf120:fx" ' API key
+        Dim url As String = "https://api-free.deepl.com/v2/translate"
+
+        ' 
+        Dim client As New HttpClient()
+        Dim requestContent As New FormUrlEncodedContent(New Dictionary(Of String, String) From {
+            {"auth_key", apiKey},
+            {"text", texto},
+            {"source_lang", sourceLang},
+            {"target_lang", targetLan}
+        })
+
+        ' HTTP request
+        Dim response As HttpResponseMessage = Await client.PostAsync(url, requestContent)
+        Dim responseBody As String = Await response.Content.ReadAsStringAsync()
+
+        ' JSON return
+        Dim json As JObject = JObject.Parse(responseBody)
+        Dim translate As String = json("translations")(0)("text").ToString()
+
+        Return translate
+    End Function
+
+    Private Sub bSwitch_Click(sender As Object, e As EventArgs) Handles bSwitch.Click
+
+        Dim tempOriginalLang As String = cbOriginalLang.SelectedItem.ToString()
+        Dim tempTargetLang As String = cbTargetLang.SelectedItem.ToString()
+
+
+        cbOriginalLang.SelectedItem = tempTargetLang
+        cbTargetLang.SelectedItem = tempOriginalLang
+
+        originalLang.Clear()
+        targetLang.Clear()
+    End Sub
+
+
+    Private Async Sub originalLang_TextChanged(sender As Object, e As EventArgs) Handles originalLang.TextChanged
+
+        Dim text As String = originalLang.Text
+
+        Dim idiomaOrigen As String = cbOriginalLang.SelectedItem.ToString()
+        Dim idiomaDestino As String = cbTargetLang.SelectedItem.ToString()
+
+        ' calls API
+        If Not String.IsNullOrWhiteSpace(text) Then
+            Dim translat As String = Await TranslateText(text, idiomaOrigen, idiomaDestino)
+            targetLang.Text = translat
+        End If
+    End Sub
+
 
 End Class

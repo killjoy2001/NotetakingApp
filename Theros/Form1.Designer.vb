@@ -28,6 +28,7 @@ Partial Class Form1
         ToolStripMenuItem2 = New ToolStripMenuItem()
         ToolStripMenuItem3 = New ToolStripMenuItem()
         ToolStripMenuItem4 = New ToolStripMenuItem()
+        ToolStripMenuItem1 = New ToolStripMenuItem()
         richTextBox1 = New RichTextBox()
         TabControl1 = New TabControl()
         TabPage1 = New TabPage()
@@ -36,6 +37,12 @@ Partial Class Form1
         TextBox2 = New TextBox()
         TabPage3 = New TabPage()
         TextBox3 = New TextBox()
+        originalLang = New TextBox()
+        targetLang = New TextBox()
+        cbOriginalLang = New ComboBox()
+        cbTargetLang = New ComboBox()
+        Label1 = New Label()
+        bSwitch = New Button()
         MenuStrip1.SuspendLayout()
         TabControl1.SuspendLayout()
         TabPage1.SuspendLayout()
@@ -45,7 +52,7 @@ Partial Class Form1
         ' 
         ' MenuStrip1
         ' 
-        MenuStrip1.Items.AddRange(New ToolStripItem() {FontToolStripMenuItem})
+        MenuStrip1.Items.AddRange(New ToolStripItem() {FontToolStripMenuItem, ToolStripMenuItem1})
         MenuStrip1.Location = New Point(0, 0)
         MenuStrip1.Name = "MenuStrip1"
         MenuStrip1.Size = New Size(621, 24)
@@ -77,13 +84,19 @@ Partial Class Form1
         ToolStripMenuItem4.Size = New Size(86, 22)
         ToolStripMenuItem4.Text = "12"
         ' 
+        ' ToolStripMenuItem1
+        ' 
+        ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        ToolStripMenuItem1.Size = New Size(22, 20)
+        ToolStripMenuItem1.Text = " "
+        ' 
         ' richTextBox1
         ' 
         richTextBox1.BorderStyle = BorderStyle.None
         richTextBox1.Font = New Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         richTextBox1.Location = New Point(12, 37)
         richTextBox1.Name = "richTextBox1"
-        richTextBox1.Size = New Size(407, 624)
+        richTextBox1.Size = New Size(407, 523)
         richTextBox1.TabIndex = 9
         richTextBox1.Text = ""
         ' 
@@ -95,7 +108,7 @@ Partial Class Form1
         TabControl1.Location = New Point(425, 37)
         TabControl1.Name = "TabControl1"
         TabControl1.SelectedIndex = 0
-        TabControl1.Size = New Size(188, 624)
+        TabControl1.Size = New Size(188, 523)
         TabControl1.TabIndex = 10
         ' 
         ' TabPage1
@@ -104,7 +117,7 @@ Partial Class Form1
         TabPage1.Location = New Point(4, 24)
         TabPage1.Name = "TabPage1"
         TabPage1.Padding = New Padding(3)
-        TabPage1.Size = New Size(180, 596)
+        TabPage1.Size = New Size(180, 495)
         TabPage1.TabIndex = 0
         TabPage1.Text = "Medical"
         TabPage1.UseVisualStyleBackColor = True
@@ -116,7 +129,7 @@ Partial Class Form1
         TextBox1.Location = New Point(3, 3)
         TextBox1.Multiline = True
         TextBox1.Name = "TextBox1"
-        TextBox1.Size = New Size(174, 590)
+        TextBox1.Size = New Size(174, 489)
         TextBox1.TabIndex = 0
         ' 
         ' TabPage2
@@ -125,7 +138,7 @@ Partial Class Form1
         TabPage2.Location = New Point(4, 24)
         TabPage2.Name = "TabPage2"
         TabPage2.Padding = New Padding(3)
-        TabPage2.Size = New Size(180, 596)
+        TabPage2.Size = New Size(180, 495)
         TabPage2.TabIndex = 1
         TabPage2.Text = "Insurance"
         TabPage2.UseVisualStyleBackColor = True
@@ -137,7 +150,7 @@ Partial Class Form1
         TextBox2.Location = New Point(3, 3)
         TextBox2.Multiline = True
         TextBox2.Name = "TextBox2"
-        TextBox2.Size = New Size(174, 590)
+        TextBox2.Size = New Size(174, 489)
         TextBox2.TabIndex = 1
         ' 
         ' TabPage3
@@ -145,7 +158,7 @@ Partial Class Form1
         TabPage3.Controls.Add(TextBox3)
         TabPage3.Location = New Point(4, 24)
         TabPage3.Name = "TabPage3"
-        TabPage3.Size = New Size(180, 596)
+        TabPage3.Size = New Size(180, 495)
         TabPage3.TabIndex = 2
         TabPage3.Text = "Financial"
         TabPage3.UseVisualStyleBackColor = True
@@ -157,8 +170,63 @@ Partial Class Form1
         TextBox3.Location = New Point(0, 0)
         TextBox3.Multiline = True
         TextBox3.Name = "TextBox3"
-        TextBox3.Size = New Size(180, 596)
+        TextBox3.Size = New Size(180, 495)
         TextBox3.TabIndex = 1
+        ' 
+        ' originalLang
+        ' 
+        originalLang.Location = New Point(12, 566)
+        originalLang.Multiline = True
+        originalLang.Name = "originalLang"
+        originalLang.Size = New Size(199, 95)
+        originalLang.TabIndex = 11
+        ' 
+        ' targetLang
+        ' 
+        targetLang.Location = New Point(220, 566)
+        targetLang.Multiline = True
+        targetLang.Name = "targetLang"
+        targetLang.Size = New Size(199, 95)
+        targetLang.TabIndex = 12
+        ' 
+        ' cbOriginalLang
+        ' 
+        cbOriginalLang.ForeColor = SystemColors.ControlDark
+        cbOriginalLang.FormattingEnabled = True
+        cbOriginalLang.Location = New Point(425, 566)
+        cbOriginalLang.Name = "cbOriginalLang"
+        cbOriginalLang.Size = New Size(117, 23)
+        cbOriginalLang.TabIndex = 13
+        cbOriginalLang.Tag = ""
+        cbOriginalLang.Text = "Entered language"
+        ' 
+        ' cbTargetLang
+        ' 
+        cbTargetLang.ForeColor = SystemColors.ControlDark
+        cbTargetLang.FormattingEnabled = True
+        cbTargetLang.Location = New Point(425, 595)
+        cbTargetLang.Name = "cbTargetLang"
+        cbTargetLang.Size = New Size(117, 23)
+        cbTargetLang.TabIndex = 14
+        cbTargetLang.Text = "Target language"
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Location = New Point(432, 646)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(75, 15)
+        Label1.TabIndex = 15
+        Label1.Text = "v.2.0. @hang"
+        ' 
+        ' bSwitch
+        ' 
+        bSwitch.Location = New Point(548, 580)
+        bSwitch.Name = "bSwitch"
+        bSwitch.Size = New Size(41, 23)
+        bSwitch.TabIndex = 16
+        bSwitch.Text = "↑↓"
+        bSwitch.UseVisualStyleBackColor = True
         ' 
         ' Form1
         ' 
@@ -166,6 +234,12 @@ Partial Class Form1
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.FromArgb(CByte(25), CByte(109), CByte(186))
         ClientSize = New Size(621, 673)
+        Controls.Add(bSwitch)
+        Controls.Add(Label1)
+        Controls.Add(cbTargetLang)
+        Controls.Add(cbOriginalLang)
+        Controls.Add(targetLang)
+        Controls.Add(originalLang)
         Controls.Add(TabControl1)
         Controls.Add(richTextBox1)
         Controls.Add(MenuStrip1)
@@ -200,5 +274,12 @@ Partial Class Form1
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents TabPage3 As TabPage
     Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents ToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents originalLang As TextBox
+    Friend WithEvents targetLang As TextBox
+    Friend WithEvents cbOriginalLang As ComboBox
+    Friend WithEvents cbTargetLang As ComboBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents bSwitch As Button
 
 End Class
