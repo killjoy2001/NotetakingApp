@@ -138,7 +138,7 @@ Public Class Form1
         If abbReplaced Then
             richTextBox1.Text = modifiedText
 
-            ' moves cursor to the last caracter after replacing a word to avoid typing in the middle of a word
+            ' moves cursor to the last caracter after replacing a word to avoid typing in the middle of the replaced word
             ' the only way this happends is by typing right ->, thats why SendKeys.Send("{RIGHT}")
             Dim newCursorPosition As Integer = originalStart + (modifiedText.Length - originalText.Length)
             richTextBox1.SelectionStart = newCursorPosition
